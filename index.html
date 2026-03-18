@@ -19,7 +19,7 @@
       background: white;
       border-radius: 20px;
       padding: 36px 28px;
-      max-width: 420px;
+      max-width: 440px;
       width: 100%;
       box-shadow: 0 4px 24px rgba(0,0,0,0.10);
       text-align: center;
@@ -28,54 +28,21 @@
     h1 { font-size: 22px; font-weight: 700; color: #1a202c; margin-bottom: 6px; }
     .subtitle { font-size: 14px; color: #718096; margin-bottom: 28px; line-height: 1.5; }
 
-    /* iOS */
-    #ios-view .btn-primary {
+    /* Shared button style */
+    .btn-main {
       display: block; width: 100%; padding: 16px; border-radius: 12px;
-      font-size: 16px; font-weight: 600; text-decoration: none;
-      background: #2563eb; color: white;
+      font-size: 16px; font-weight: 600; text-decoration: none; border: none;
+      cursor: pointer; text-align: center;
       transition: transform 0.1s, opacity 0.1s;
     }
-    #ios-view .btn-primary:active { transform: scale(0.97); opacity: 0.9; }
+    .btn-main:active { transform: scale(0.97); opacity: 0.9; }
+    .btn-blue { background: #2563eb; color: white; }
+    .btn-green { background: #16a34a; color: white; }
 
-    /* Android */
-    #android-view { text-align: left; }
-    .btn-download {
-      display: block; width: 100%; padding: 15px; border-radius: 12px;
-      font-size: 15px; font-weight: 600; text-decoration: none;
-      background: #16a34a; color: white; text-align: center; margin-bottom: 20px;
-      transition: transform 0.1s, opacity 0.1s;
-    }
-    .btn-download:active { transform: scale(0.97); opacity: 0.9; }
-    .divider {
-      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
-    }
-    .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: #e2e8f0; }
-    .divider span { font-size: 12px; color: #9ca3af; white-space: nowrap; }
-    .steps-label {
-      font-size: 12px; font-weight: 600; color: #6b7280;
-      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px;
-    }
-    .step { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
-    .step-num {
-      flex-shrink: 0; width: 28px; height: 28px; background: #16a34a;
-      color: white; border-radius: 50%; font-size: 13px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center; margin-top: 1px;
-    }
-    .step-text { font-size: 14px; color: #374151; line-height: 1.6; }
-    .step-text strong { color: #1a202c; }
+    .note { font-size: 12px; color: #a0aec0; margin-top: 20px; line-height: 1.5; text-align: center; }
 
     /* Fallback */
-    #fallback-view .btn-ios {
-      display: block; width: 100%; padding: 15px; border-radius: 12px;
-      font-size: 15px; font-weight: 600; text-decoration: none;
-      background: #2563eb; color: white; text-align: center; margin-bottom: 10px;
-    }
-    #fallback-view .btn-android {
-      display: block; width: 100%; padding: 15px; border-radius: 12px;
-      font-size: 15px; font-weight: 600; text-decoration: none;
-      background: #16a34a; color: white; text-align: center;
-    }
-    .note { font-size: 12px; color: #a0aec0; margin-top: 22px; line-height: 1.5; text-align: center; }
+    #fallback-view .btn-main { margin-bottom: 10px; }
   </style>
 </head>
 <body>
@@ -86,7 +53,8 @@
 
   <!-- iPhone -->
   <div id="ios-view" style="display:none">
-    <a class="btn-primary" href="webcal://chris-10.github.io/famcal/family_events_iphone.ics">
+    <a class="btn-main btn-blue"
+       href="webcal://chris-10.github.io/famcal/family_events_iphone.ics">
       Add to Calendar
     </a>
     <p class="note">Tap the button. Calendar will ask you to confirm &mdash; that&apos;s it.</p>
@@ -94,43 +62,24 @@
 
   <!-- Android -->
   <div id="android-view" style="display:none">
-    <a class="btn-download"
-       href="https://chris-10.github.io/famcal/family_events_android.ics"
-       download="family_events.ics">
-      Download Calendar File
+    <a class="btn-main btn-green"
+       href="https://calendar.google.com/calendar/u/0?cid=NWU3YzNkNTg4ODU0NjJhZmQ2MmUyODI5MmMxOTcyNDUxNzE1YTJkZmEzNmRhMjRlZTU2YzFkYjdiM2NmM2JhZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">
+      Add to Google Calendar
     </a>
-    <div class="divider"><span>then follow these steps</span></div>
-    <div class="steps-label">After downloading</div>
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-text">Pull down from the top of your screen to open the <strong>notification shade</strong>.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-text">Tap the <strong>family_events.ics download notification</strong>.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-text">When asked which app to open it with, choose <strong>Google Calendar</strong>.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-text">Tap <strong>Import</strong> to confirm. Done.</div>
-    </div>
-    <p class="note">If no prompt appears, open the <strong>Files</strong> app, go to Downloads, and tap the file there.</p>
+    <p class="note">Tap the button. Google Calendar will open and ask you to confirm &mdash; that&apos;s it.</p>
   </div>
 
   <!-- Desktop / unknown -->
   <div id="fallback-view" style="display:none">
-    <a class="btn-ios" href="webcal://chris-10.github.io/famcal/family_events_iphone.ics">
+    <a class="btn-main btn-blue"
+       href="webcal://chris-10.github.io/famcal/family_events_iphone.ics">
       Add to Calendar &mdash; iPhone / Mac
     </a>
-    <a class="btn-android"
-       href="https://chris-10.github.io/famcal/family_events_android.ics"
-       download="family_events.ics">
-      Download for Android
+    <a class="btn-main btn-green"
+       href="https://calendar.google.com/calendar/u/0?cid=NWU3YzNkNTg4ODU0NjJhZmQ2MmUyODI5MmMxOTcyNDUxNzE1YTJkZmEzNmRhMjRlZTU2YzFkYjdiM2NmM2JhZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">
+      Add to Google Calendar &mdash; Android
     </a>
-    <p class="note">On Android, tap the download notification after downloading, then open with Google Calendar.</p>
+    <p class="note">Choose the option for your device above.</p>
   </div>
 </div>
 
