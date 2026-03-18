@@ -6,7 +6,6 @@
   <title>Family Events Calendar</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: #f0f4f8;
@@ -16,194 +15,133 @@
       justify-content: center;
       padding: 24px;
     }
-
     .card {
       background: white;
       border-radius: 20px;
-      padding: 40px 32px;
+      padding: 36px 28px;
       max-width: 420px;
       width: 100%;
       box-shadow: 0 4px 24px rgba(0,0,0,0.10);
       text-align: center;
     }
+    .icon { font-size: 48px; margin-bottom: 14px; }
+    h1 { font-size: 22px; font-weight: 700; color: #1a202c; margin-bottom: 6px; }
+    .subtitle { font-size: 14px; color: #718096; margin-bottom: 28px; line-height: 1.5; }
 
-    .icon { font-size: 52px; margin-bottom: 16px; }
-
-    h1 {
-      font-size: 22px;
-      font-weight: 700;
-      color: #1a202c;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      color: #718096;
-      margin-bottom: 32px;
-      line-height: 1.5;
-    }
-
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 16px;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
+    /* iOS */
+    #ios-view .btn-primary {
+      display: block; width: 100%; padding: 16px; border-radius: 12px;
+      font-size: 16px; font-weight: 600; text-decoration: none;
+      background: #2563eb; color: white;
       transition: transform 0.1s, opacity 0.1s;
     }
-    .btn:active { transform: scale(0.97); opacity: 0.9; }
+    #ios-view .btn-primary:active { transform: scale(0.97); opacity: 0.9; }
 
-    .btn-primary {
-      background: #2563eb;
-      color: white;
-      margin-bottom: 12px;
+    /* Android */
+    #android-view { text-align: left; }
+    .btn-download {
+      display: block; width: 100%; padding: 15px; border-radius: 12px;
+      font-size: 15px; font-weight: 600; text-decoration: none;
+      background: #16a34a; color: white; text-align: center; margin-bottom: 20px;
+      transition: transform 0.1s, opacity 0.1s;
     }
-
-    .btn-secondary {
-      background: #f1f5f9;
-      color: #374151;
-      font-size: 14px;
-      padding: 13px;
-    }
-
+    .btn-download:active { transform: scale(0.97); opacity: 0.9; }
     .divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 20px 0;
-      color: #cbd5e0;
-      font-size: 12px;
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
     }
-    .divider::before, .divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: #e2e8f0;
+    .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: #e2e8f0; }
+    .divider span { font-size: 12px; color: #9ca3af; white-space: nowrap; }
+    .steps-label {
+      font-size: 12px; font-weight: 600; color: #6b7280;
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px;
     }
+    .step { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+    .step-num {
+      flex-shrink: 0; width: 28px; height: 28px; background: #16a34a;
+      color: white; border-radius: 50%; font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+    .step-text { font-size: 14px; color: #374151; line-height: 1.6; }
+    .step-text strong { color: #1a202c; }
 
-    .instructions {
-      display: none;
-      text-align: left;
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 16px;
-      margin-top: 16px;
+    /* Fallback */
+    #fallback-view .btn-ios {
+      display: block; width: 100%; padding: 15px; border-radius: 12px;
+      font-size: 15px; font-weight: 600; text-decoration: none;
+      background: #2563eb; color: white; text-align: center; margin-bottom: 10px;
     }
-    .instructions.visible { display: block; }
-
-    .instructions p {
-      font-size: 13px;
-      color: #4a5568;
-      line-height: 1.7;
-      margin-bottom: 6px;
+    #fallback-view .btn-android {
+      display: block; width: 100%; padding: 15px; border-radius: 12px;
+      font-size: 15px; font-weight: 600; text-decoration: none;
+      background: #16a34a; color: white; text-align: center;
     }
-    .instructions p:last-child { margin-bottom: 0; }
-    .instructions strong { color: #1a202c; }
-
-    .url-box {
-      background: #edf2f7;
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 12px;
-      color: #2d3748;
-      word-break: break-all;
-      margin-top: 10px;
-      font-family: monospace;
-      cursor: pointer;
-      border: 1px solid #e2e8f0;
-    }
-    .url-box:active { background: #e2e8f0; }
-
-    .copied {
-      font-size: 11px;
-      color: #38a169;
-      margin-top: 6px;
-      display: none;
-    }
-
-    .note {
-      font-size: 12px;
-      color: #a0aec0;
-      margin-top: 24px;
-      line-height: 1.5;
-    }
+    .note { font-size: 12px; color: #a0aec0; margin-top: 22px; line-height: 1.5; text-align: center; }
   </style>
 </head>
 <body>
 <div class="card">
-  <div class="icon">📅</div>
+  <div class="icon">&#x1F4C5;</div>
   <h1>Family Events Calendar</h1>
-  <p class="subtitle">Birthdays, anniversaries &amp; special occasions — with automatic reminders at 8 AM.</p>
+  <p class="subtitle">Birthdays, anniversaries &amp; special occasions<br>with 8 AM reminders.</p>
 
-  <a class="btn btn-primary" id="mainBtn" href="#">Add to My Calendar</a>
-
-  <div class="divider">or</div>
-
-  <button class="btn btn-secondary" onclick="toggleInstructions()">Manual instructions</button>
-
-  <div class="instructions" id="instructions">
-    <p id="manualText"></p>
-    <div class="url-box" id="urlBox" onclick="copyUrl()">
-      webcal://chris-10.github.io/famcal/family_events.ics
-    </div>
-    <p class="copied" id="copied">Copied!</p>
+  <!-- iPhone -->
+  <div id="ios-view" style="display:none">
+    <a class="btn-primary" href="webcal://chris-10.github.io/famcal/family_events_iphone.ics">
+      Add to Calendar
+    </a>
+    <p class="note">Tap the button. Calendar will ask you to confirm &mdash; that&apos;s it.</p>
   </div>
 
-  <p class="note">Subscribing keeps your calendar automatically up to date if events are ever added or changed.</p>
+  <!-- Android -->
+  <div id="android-view" style="display:none">
+    <a class="btn-download"
+       href="https://chris-10.github.io/famcal/family_events_android.ics"
+       download="family_events.ics">
+      Download Calendar File
+    </a>
+    <div class="divider"><span>then follow these steps</span></div>
+    <div class="steps-label">After downloading</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">Pull down from the top of your screen to open the <strong>notification shade</strong>.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">Tap the <strong>family_events.ics download notification</strong>.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">When asked which app to open it with, choose <strong>Google Calendar</strong>.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text">Tap <strong>Import</strong> to confirm. Done.</div>
+    </div>
+    <p class="note">If no prompt appears, open the <strong>Files</strong> app, go to Downloads, and tap the file there.</p>
+  </div>
+
+  <!-- Desktop / unknown -->
+  <div id="fallback-view" style="display:none">
+    <a class="btn-ios" href="webcal://chris-10.github.io/famcal/family_events_iphone.ics">
+      Add to Calendar &mdash; iPhone / Mac
+    </a>
+    <a class="btn-android"
+       href="https://chris-10.github.io/famcal/family_events_android.ics"
+       download="family_events.ics">
+      Download for Android
+    </a>
+    <p class="note">On Android, tap the download notification after downloading, then open with Google Calendar.</p>
+  </div>
 </div>
 
 <script>
-  const WEBCAL = "webcal://chris-10.github.io/famcal/family_events.ics";
-  const HTTPS  = "https://chris-10.github.io/famcal/family_events.ics";
-
-  const isAndroid = /android/i.test(navigator.userAgent);
-  const isIOS     = /iphone|ipad|ipod/i.test(navigator.userAgent);
-
-  const btn = document.getElementById("mainBtn");
-
-  // Both platforms use webcal:// — iOS handles it natively,
-  // Google Calendar on Android registers as a webcal:// handler.
-  btn.href = WEBCAL;
-
-  // Fallback: if webcal doesn't fire within 1.5s, show manual instructions
-  btn.addEventListener("click", function() {
-    setTimeout(function() {
-      if (!document.hidden) {
-        document.getElementById("instructions").classList.add("visible");
-        setManualText();
-      }
-    }, 1500);
-  });
-
-  function setManualText() {
-    const el = document.getElementById("manualText");
-    const ub = document.getElementById("urlBox");
-    if (isAndroid) {
-      el.innerHTML = "Open <strong>Google Calendar</strong> app &rarr; tap <strong>&#9776; Menu</strong> &rarr; <strong>Settings</strong> &rarr; <strong>Subscribe to calendar</strong>. Paste the URL below:";
-      ub.textContent = HTTPS;
-    } else {
-      el.innerHTML = "Open <strong>Safari</strong> and paste the link below into the address bar, then tap <strong>Go</strong>. Calendar will open automatically.";
-      ub.textContent = WEBCAL;
-    }
-  }
-
-  function toggleInstructions() {
-    const el = document.getElementById("instructions");
-    el.classList.toggle("visible");
-    if (el.classList.contains("visible")) setManualText();
-  }
-
-  function copyUrl() {
-    const text = document.getElementById("urlBox").textContent.trim();
-    navigator.clipboard.writeText(text).then(function() {
-      const c = document.getElementById("copied");
-      c.style.display = "block";
-      setTimeout(function() { c.style.display = "none"; }, 2000);
-    });
+  var ua = navigator.userAgent;
+  if (/iphone|ipad|ipod/i.test(ua)) {
+    document.getElementById("ios-view").style.display = "block";
+  } else if (/android/i.test(ua)) {
+    document.getElementById("android-view").style.display = "block";
+  } else {
+    document.getElementById("fallback-view").style.display = "block";
   }
 </script>
 </body>
