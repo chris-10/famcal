@@ -19,7 +19,7 @@
       background: white;
       border-radius: 20px;
       padding: 36px 28px;
-      max-width: 440px;
+      max-width: 460px;
       width: 100%;
       box-shadow: 0 4px 24px rgba(0,0,0,0.10);
       text-align: center;
@@ -38,16 +38,43 @@
     .btn-blue  { background: #2563eb; color: white; }
     .btn-green { background: #16a34a; color: white; }
 
-    /* Android steps */
+    /* Android */
     #android-view { text-align: left; }
-    .step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; color: #9ca3af;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      margin-bottom: 14px; margin-top: 4px;
+    }
+
+    .step {
+      display: flex; align-items: flex-start;
+      gap: 14px; margin-bottom: 18px;
+    }
     .step-num {
-      flex-shrink: 0; width: 26px; height: 26px; background: #16a34a;
-      color: white; border-radius: 50%; font-size: 12px; font-weight: 700;
+      flex-shrink: 0; width: 30px; height: 30px; background: #2563eb;
+      color: white; border-radius: 50%; font-size: 13px; font-weight: 700;
       display: flex; align-items: center; justify-content: center; margin-top: 1px;
     }
-    .step-text { font-size: 14px; color: #374151; line-height: 1.6; }
+    .step-text { font-size: 14.5px; color: #374151; line-height: 1.7; }
     .step-text strong { color: #1a202c; }
+    .step-text .hint {
+      display: block; font-size: 12.5px; color: #6b7280;
+      margin-top: 4px; line-height: 1.5;
+    }
+
+    .img-placeholder {
+      background: #f1f5f9; border: 1px dashed #cbd5e0;
+      border-radius: 8px; padding: 10px 12px;
+      font-size: 12px; color: #9ca3af;
+      margin-top: 8px; text-align: center;
+    }
+
+    .divider {
+      display: flex; align-items: center; gap: 10px; margin: 22px 0;
+    }
+    .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: #e2e8f0; }
+    .divider span { font-size: 12px; color: #9ca3af; white-space: nowrap; font-weight: 600; }
 
     .url-row {
       display: flex; align-items: stretch; gap: 8px; margin-top: 10px;
@@ -55,18 +82,24 @@
     .url-box {
       flex: 1; background: #f1f5f9; border: 1px solid #e2e8f0;
       border-radius: 8px; padding: 10px 11px;
-      font-size: 11px; color: #2d3748; word-break: break-all;
-      font-family: monospace; line-height: 1.5;
+      font-size: 13px; color: #1a202c;
+      font-family: monospace; line-height: 1.5; word-break: break-all;
     }
     .copy-btn {
       flex-shrink: 0; background: #2563eb; color: white; border: none;
       border-radius: 8px; padding: 10px 14px; font-size: 13px; font-weight: 600;
-      cursor: pointer; transition: background 0.15s; align-self: stretch;
+      cursor: pointer; transition: background 0.15s;
     }
     .copy-btn:active { background: #1d4ed8; }
     .copy-btn.copied { background: #16a34a; }
 
-    .note { font-size: 12px; color: #a0aec0; margin-top: 20px; line-height: 1.5; text-align: center; }
+    .success-box {
+      background: #f0fdf4; border: 1px solid #bbf7d0;
+      border-radius: 12px; padding: 14px 16px; margin-top: 4px;
+    }
+    .success-box p { font-size: 13.5px; color: #374151; line-height: 1.6; }
+
+    .note { font-size: 12px; color: #a0aec0; margin-top: 22px; line-height: 1.5; text-align: center; }
 
     /* Fallback */
     #fallback-view .btn-main { margin-bottom: 10px; }
@@ -89,32 +122,113 @@
 
   <!-- Android -->
   <div id="android-view" style="display:none">
+
+    <div class="section-label">Part 1 &mdash; Copy the link</div>
+
     <div class="step">
       <div class="step-num">1</div>
-      <div class="step-text">Copy the link below.</div>
-    </div>
-    <div class="url-row">
-      <div class="url-box" id="urlBox">https://calendar.google.com/calendar/u/0?cid=NWU3YzNkNTg4ODU0NjJhZmQ2MmUyODI5MmMxOTcyNDUxNzE1YTJkZmEzNmRhMjRlZTU2YzFkYjdiM2NmM2JhZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t</div>
-      <button class="copy-btn" id="copyBtn" onclick="copyUrl()">Copy</button>
+      <div class="step-text">
+        Tap the <strong>Copy</strong> button on the right to copy the link below.
+        <div class="url-row">
+          <div class="url-box" id="urlBox">https://calendar.google.com/calendar/u/0?cid=NWU3YzNkNTg4ODU0NjJhZmQ2MmUyODI5MmMxOTcyNDUxNzE1YTJkZmEzNmRhMjRlZTU2YzFkYjdiM2NmM2JhZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t</div>
+          <button class="copy-btn" id="copyBtn" onclick="copyUrl()">Copy</button>
+        </div>
+      </div>
     </div>
 
-    <br>
+    <div class="divider"><span>Part 2 &mdash; Open Chrome</span></div>
 
     <div class="step">
       <div class="step-num">2</div>
-      <div class="step-text">Open <strong>Chrome</strong> (not Google Calendar), paste the link in the address bar and go.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-text">The Google Calendar website will open. Tap <strong>"Add calendar"</strong> to confirm.</div>
+      <div class="step-text">
+        Find the <strong>Chrome</strong> app on your phone and open it.
+        <span class="hint">Chrome looks like a coloured circle &mdash; red, green, yellow and blue. It is not the same as Google Calendar.</span>
+      </div>
     </div>
 
-    <p class="note">Must be done in Chrome &mdash; opening the link directly in Google Calendar app will not work.</p>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        Tap the <strong>address bar</strong> at the very top of the screen where web addresses are shown.
+        <span class="hint">It may show something like &ldquo;Google&rdquo; or a web address. Just tap on it.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text">
+        <strong>Delete</strong> whatever is there and <strong>paste</strong> the link you copied in step 1.
+        <span class="hint">To paste: press and hold in the address bar for 1 second, then tap <strong>Paste</strong> when it appears.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-text">
+        Tap the <strong>blue arrow</strong> or press <strong>Go</strong> on your keyboard to open the link.
+      </div>
+    </div>
+
+    <div class="divider"><span>Part 3 &mdash; Switch to Desktop view</span></div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-text">
+        Tap the <strong>three dots &#8942;</strong> in the top-right corner of Chrome.
+        <span class="hint">These are three small dots stacked on top of each other, in the top-right corner.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">7</div>
+      <div class="step-text">
+        In the menu that appears, tap <strong>Desktop site</strong>.
+        <span class="hint">The page will reload and look smaller &mdash; this is normal.</span>
+      </div>
+    </div>
+
+    <div class="divider"><span>Part 4 &mdash; Add the calendar</span></div>
+
+    <div class="step">
+      <div class="step-num">8</div>
+      <div class="step-text">
+        On the left side of the screen, look for <strong>Other calendars</strong> and tap the <strong>+ plus sign</strong> next to it.
+        <span class="hint">You may need to scroll down a little on the left side to find it.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">9</div>
+      <div class="step-text">
+        Tap <strong>From URL</strong> in the small menu that appears.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">10</div>
+      <div class="step-text">
+        Tap the text box that appears and <strong>paste</strong> the same link again.
+        <span class="hint">Press and hold in the box for 1 second, then tap <strong>Paste</strong>.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">11</div>
+      <div class="step-text">
+        Tap the <strong>Add calendar</strong> button. You are done!
+      </div>
+    </div>
+
+    <div class="success-box">
+      <p>&#x2705; The Family Events calendar will now appear in your Google Calendar app automatically. You only need to do this once.</p>
+    </div>
+
+    <p class="note">If you get stuck at any step, ask a family member to help you the first time.</p>
   </div>
 
   <!-- Desktop / unknown -->
   <div id="fallback-view" style="display:none">
-    <a class="btn-main btn-blue"
+    <a class="btn-main btn-blue" style="margin-bottom:10px;"
        href="webcal://chris-10.github.io/famcal/family_events_iphone.ics">
       Add to Calendar &mdash; iPhone / Mac
     </a>
@@ -122,8 +236,9 @@
        href="https://calendar.google.com/calendar/u/0?cid=NWU3YzNkNTg4ODU0NjJhZmQ2MmUyODI5MmMxOTcyNDUxNzE1YTJkZmEzNmRhMjRlZTU2YzFkYjdiM2NmM2JhZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">
       Add to Google Calendar &mdash; Android
     </a>
-    <p class="note">Android: open the link in Chrome browser, not in the Google Calendar app.</p>
+    <p class="note">Android: open the link in Chrome and switch to Desktop site first.</p>
   </div>
+
 </div>
 
 <script>
