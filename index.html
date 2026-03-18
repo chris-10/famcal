@@ -28,7 +28,6 @@
     h1 { font-size: 22px; font-weight: 700; color: #1a202c; margin-bottom: 6px; }
     .subtitle { font-size: 14px; color: #718096; margin-bottom: 28px; line-height: 1.5; }
 
-    /* Shared button style */
     .btn-main {
       display: block; width: 100%; padding: 16px; border-radius: 12px;
       font-size: 16px; font-weight: 600; text-decoration: none; border: none;
@@ -36,8 +35,36 @@
       transition: transform 0.1s, opacity 0.1s;
     }
     .btn-main:active { transform: scale(0.97); opacity: 0.9; }
-    .btn-blue { background: #2563eb; color: white; }
+    .btn-blue  { background: #2563eb; color: white; }
     .btn-green { background: #16a34a; color: white; }
+
+    /* Android steps */
+    #android-view { text-align: left; }
+    .step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .step-num {
+      flex-shrink: 0; width: 26px; height: 26px; background: #16a34a;
+      color: white; border-radius: 50%; font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+    .step-text { font-size: 14px; color: #374151; line-height: 1.6; }
+    .step-text strong { color: #1a202c; }
+
+    .url-row {
+      display: flex; align-items: stretch; gap: 8px; margin-top: 10px;
+    }
+    .url-box {
+      flex: 1; background: #f1f5f9; border: 1px solid #e2e8f0;
+      border-radius: 8px; padding: 10px 11px;
+      font-size: 11px; color: #2d3748; word-break: break-all;
+      font-family: monospace; line-height: 1.5;
+    }
+    .copy-btn {
+      flex-shrink: 0; background: #2563eb; color: white; border: none;
+      border-radius: 8px; padding: 10px 14px; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: background 0.15s; align-self: stretch;
+    }
+    .copy-btn:active { background: #1d4ed8; }
+    .copy-btn.copied { background: #16a34a; }
 
     .note { font-size: 12px; color: #a0aec0; margin-top: 20px; line-height: 1.5; text-align: center; }
 
@@ -62,11 +89,27 @@
 
   <!-- Android -->
   <div id="android-view" style="display:none">
-    <a class="btn-main btn-green"
-       href="https://calendar.google.com/calendar/u/0?cid=NWU3YzNkNTg4ODU0NjJhZmQ2MmUyODI5MmMxOTcyNDUxNzE1YTJkZmEzNmRhMjRlZTU2YzFkYjdiM2NmM2JhZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">
-      Add to Google Calendar
-    </a>
-    <p class="note">Tap the button. Google Calendar will open and ask you to confirm &mdash; that&apos;s it.</p>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">Copy the link below.</div>
+    </div>
+    <div class="url-row">
+      <div class="url-box" id="urlBox">https://calendar.google.com/calendar/u/0?cid=NWU3YzNkNTg4ODU0NjJhZmQ2MmUyODI5MmMxOTcyNDUxNzE1YTJkZmEzNmRhMjRlZTU2YzFkYjdiM2NmM2JhZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t</div>
+      <button class="copy-btn" id="copyBtn" onclick="copyUrl()">Copy</button>
+    </div>
+
+    <br>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">Open <strong>Chrome</strong> (not Google Calendar), paste the link in the address bar and go.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">The Google Calendar website will open. Tap <strong>"Add calendar"</strong> to confirm.</div>
+    </div>
+
+    <p class="note">Must be done in Chrome &mdash; opening the link directly in Google Calendar app will not work.</p>
   </div>
 
   <!-- Desktop / unknown -->
@@ -79,7 +122,7 @@
        href="https://calendar.google.com/calendar/u/0?cid=NWU3YzNkNTg4ODU0NjJhZmQ2MmUyODI5MmMxOTcyNDUxNzE1YTJkZmEzNmRhMjRlZTU2YzFkYjdiM2NmM2JhZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">
       Add to Google Calendar &mdash; Android
     </a>
-    <p class="note">Choose the option for your device above.</p>
+    <p class="note">Android: open the link in Chrome browser, not in the Google Calendar app.</p>
   </div>
 </div>
 
@@ -91,6 +134,29 @@
     document.getElementById("android-view").style.display = "block";
   } else {
     document.getElementById("fallback-view").style.display = "block";
+  }
+
+  function copyUrl() {
+    var text = document.getElementById("urlBox").textContent.trim();
+    var btn  = document.getElementById("copyBtn");
+    function markCopied() {
+      btn.textContent = "Copied!";
+      btn.classList.add("copied");
+      setTimeout(function() {
+        btn.textContent = "Copy";
+        btn.classList.remove("copied");
+      }, 2500);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(markCopied).catch(fallback);
+    } else { fallback(); }
+    function fallback() {
+      var el = document.createElement("textarea");
+      el.value = text; el.style.position = "fixed"; el.style.opacity = "0";
+      document.body.appendChild(el); el.select();
+      document.execCommand("copy"); document.body.removeChild(el);
+      markCopied();
+    }
   }
 </script>
 </body>
